@@ -7,9 +7,36 @@
  	//creat connetction
  	$mysql = new mysqli("localhost", $db_username, $db_password, "webpr2016_karoliinar");
  	
- 	//SQL sentence
- 	$stmt = $mysql->prepare("SELECT id, color, uim, saba, pikkus, created FROM homework ORDER BY created DESC LIMIT 10");
+ 	/*
+ 		IF there is a ?delete=row_id in the url
+ 	*/
  	
+ 	if(isset($_GET["delete"])){
+ 	
+ 		echo "Deleting row with id:".$_GET["delete"];
+ 		
+ 		$stmt = $mysql->prepare("UPDATE homework SET deleted=NOW() Where id=?");
+ 		
+ 		echo $mysql->error;
+ 		
+ 		//reaplace the?
+ 		$stmt->bind_param("i", $_GET["delete"]);
+ 		
+ 		if($stmt->execute()){
+ 			echo "deleted successfully";
+ 		}else{
+ 			echo $stmt->error; 
+ 		}
+ 		
+ 		//close the statment, so others can use connection 
+ 		$stmt->close();
+ 		
+ 	}
+ 	
+ 	//SQL sentence
+ 	$stmt = $mysql->prepare("SELECT id, color, uim, saba, pikkus, created FROM homework WHERE deleted IS NULL ORDER BY created DESC LIMIT 10 ");
+ 	
+ 	//WHERE deleted IS NULL show only those that are not deleted 	
  	//if error is sentence
  	echo $mysql->error;
  	
@@ -46,7 +73,7 @@
  			$table_html .= "<td>".$saba."</td>";
  			$table_html .= "<td>".$pikkus."</td>";
  			$table_html .= "<td>".$created."</td>";
- 			$table_html .= "<td><a herf='?delete=".$id."'>X</td>";
+ 			$table_html .= "<td><a href='?delete=".$id."'>X<a/></td>";
  	 	$table_html .= "</tr>"; //End row
 			
 	}
