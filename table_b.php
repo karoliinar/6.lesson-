@@ -42,7 +42,7 @@
  
  	<div class="container">
  
- <h1> This is the App page </h1>
+ <h1> This is the Table page </h1>
  
  </div>
 
