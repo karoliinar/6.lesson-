@@ -30,6 +30,7 @@
  			$table_html .= "<th>Saba</th>";
  			$table_html .= "<th>Pikkus</th>";
  			$table_html .= "<th>Created</th>";
+ 			$table_html .= "<th>Delete ?</th>";
  	 	$table_html .= "</tr>";
  	
  	//GET RESULT
@@ -45,6 +46,7 @@
  			$table_html .= "<td>".$saba."</td>";
  			$table_html .= "<td>".$pikkus."</td>";
  			$table_html .= "<td>".$created."</td>";
+ 			$table_html .= "<td><a herf='?delete=".$id."'>X</td>";
  	 	$table_html .= "</tr>"; //End row
 			
 	}
